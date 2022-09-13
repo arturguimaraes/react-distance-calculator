@@ -1,8 +1,8 @@
 interface IAddress {
   id: string;
   address: string;
-  latitude: string;
-  longitude: string;
+  lat: string;
+  lng: string;
 }
 
 export default IAddress;

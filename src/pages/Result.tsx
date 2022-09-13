@@ -1,4 +1,5 @@
 import { Card } from "react-bootstrap";
+import AddressTable from "../components/address/AddressTable";
 
 const Result = () => {
   return (
@@ -9,7 +10,7 @@ const Result = () => {
         <Card.Body>
           <div className="row">
             <div className="col-md-12">
-              <p>Result</p>
+              <AddressTable />
             </div>
           </div>
         </Card.Body>

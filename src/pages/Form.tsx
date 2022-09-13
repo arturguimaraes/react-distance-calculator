@@ -1,5 +1,6 @@
 import { Card } from "react-bootstrap";
 import MapWrapper from "../components/map/MapWrapper";
+import AddressTable from "../components/address/AddressTable";
 
 const Form = () => {
   return (
@@ -9,15 +10,18 @@ const Form = () => {
         <Card.Header>Pick your addresses</Card.Header>
         <Card.Body>
           <div className="row">
-            <div className="col-md-12 mb-3">
-              <Card.Text>
-                1. First, you have to pick at least 3 addresses.
-              </Card.Text>
+            <div className="col-md-12">
+              <p>
+                Use the search box or browse in the map, then click your
+                location to save it.
+              </p>
             </div>
             <div className="col-md-6">
               <MapWrapper />
             </div>
-            <div className="col-md-6">List</div>
+            <div className="col-md-6">
+              <AddressTable />
+            </div>
           </div>
         </Card.Body>
       </Card>
