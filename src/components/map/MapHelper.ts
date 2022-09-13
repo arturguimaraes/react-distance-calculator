@@ -13,10 +13,9 @@ const MapHelper = {
   },
   options: {
     disableDefaultUI: true,
-    zoomControl: true,
   },
   center: { lat: -22.96004843363514, lng: -43.16931908407526 },
-  initialMapZoomLevel: 10,
+  initialMapZoomLevel: 13,
 };
 
 export default MapHelper;
