@@ -17,6 +17,7 @@ const App = () => {
             <Route path="/home" element={<Home />} />
             <Route path="/form" element={<Form />} />
             <Route path="/result" element={<Result />} />
+            <Route path="*" element={<p>Not found.</p>} />
           </Routes>
         </Container>
       </main>
