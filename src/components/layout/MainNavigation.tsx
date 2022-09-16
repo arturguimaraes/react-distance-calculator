@@ -6,6 +6,9 @@ const MainNavigation = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <Link to="/" className="navbar-brand">
+          <span role="img" aria-label="map">
+            🗺️
+          </span>{" "}
           React Distance Calculator
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

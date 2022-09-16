@@ -1,9 +1,10 @@
 .mapTitle {
   position: absolute;
-  z-index: 999;
-  font-size: 1rem;
+  z-index: 10;
+  font-size: 18px;
   background-color: rgba(255,255,255,0.5);
   padding: 5px;
-  margin: 5px;
+  margin-top: 1rem;
+  margin-left: 1rem;
   border-radius: 10px;
 }

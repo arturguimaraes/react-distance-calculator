@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import MapWrapper from "../components/map/MapWrapper";
+import MapWrapper from "../components/map/Wrapper";
 import AddressTable from "../components/address/AddressTable";
 
 const Form = () => {
@@ -20,7 +20,7 @@ const Form = () => {
               <MapWrapper />
             </div>
             <div className="col-md-6">
-              <AddressTable latLng={false}/>
+              <AddressTable mapShown={true} />
             </div>
           </div>
         </Card.Body>

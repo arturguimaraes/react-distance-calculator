@@ -1,3 +1,5 @@
+import IAddress from "../../types/IAddress";
+
 export const MapLibraries: (
   | "places"
   | "drawing"
@@ -16,7 +18,11 @@ export const MapHelper = {
     zoomControl: true,
   },
   center: { lat: -22.96004843363514, lng: -43.16931908407526 },
+  getCenter: (address: IAddress) => {
+    return { lat: address.lat, lng: address.lng };
+  },
   initialMapZoomLevel: 14,
+  onChooseZoomLevel: 18,
 };
 
 const marketSize = 30;

@@ -10,7 +10,7 @@ const Result = () => {
         <Card.Body>
           <div className="row">
             <div className="col-md-12">
-              <AddressTable />
+              <AddressTable mapShown={false} />
             </div>
           </div>
         </Card.Body>
