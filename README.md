@@ -8,19 +8,22 @@ Click [here](https://arturguimaraes.github.io/react-distance-calculator/) to go 
 
 ## Installation
 
-1. Clone repository
-
+1. `Clone repository`
 ```js 
 git clone https://github.com/arturguimaraes/react-distance-calculator.git 
 ```
-
-```js
-import {Client} from "@googlemaps/google-maps-services-js";
+2. `Go to directory`
+```js 
+cd react-distance-calculator
 ```
-
-2. `cd react-distance-calculator`
-3. `npm i`
-4. `npm start`
+3. `Install required libraries`
+```js 
+npm i
+```
+4. `Start project on http://localhost:3000/`
+```js 
+npm start
+```
 
 ## Introduction
 
