@@ -21,7 +21,6 @@ cd react-distance-calculator
 npm i
 ```
 4. `Start project on http://localhost:3000/`
-```js 
 npm start
 ```
 
