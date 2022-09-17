@@ -8,7 +8,7 @@ Click [here](https://arturguimaraes.github.io/react-distance-calculator/) to go 
 
 ## Installation
 
-1. `git clone https://github.com/arturguimaraes/react-distance-calculator.git`
+1. ```js git clone https://github.com/arturguimaraes/react-distance-calculator.git ```
 2. `cd react-distance-calculator`
 3. `npm i`
 4. `npm start`
