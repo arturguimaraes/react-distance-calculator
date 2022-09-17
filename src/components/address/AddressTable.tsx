@@ -13,6 +13,7 @@ interface Props {
 }
 
 const AddressTable = (props: Props) => {
+  //GET ADDRESS STATE
   const addressState = useAppSelector((state) => state.address);
   const hasAddresses = addressState.count > 0;
   const hasMinimumAddresses = addressState.count >= 3;

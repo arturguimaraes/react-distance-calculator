@@ -13,11 +13,13 @@ interface Props {
 }
 
 const Address = (props: Props) => {
+  //DISPATCH
   const dispatch = useAppDispatch();
 
+  //GETS ADDRESS VIA PROPS AND PROPERTIES
   const address = props.address;
   const addressString = address.clicked
-    ? `Addres ${TextHelper.getLetter(props.index)} (clicked)`
+    ? `Address ${TextHelper.getLetter(props.index)} (clicked)`
     : address.address;
   const index = props.index;
 

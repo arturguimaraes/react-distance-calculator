@@ -37,7 +37,7 @@ const Search = (props: Props) => {
       dispatch(addAddress(address));
       //Center in click
       onSelectPlace(address);
-      
+
       searchBoxRef.current.setValues(null);
     } catch (error) {
       console.log("Error loading auto complete place:", error);

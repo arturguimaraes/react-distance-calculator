@@ -5,12 +5,12 @@ import MarkerHelper from "../../helpers/MarkerHelper";
 import { Fragment } from "react";
 
 const Markers = () => {
-  //LOAD ADDRESSESS
-  const addresses = useAppSelector((state) => state.address.addresses);
+  //LOAD ADDRESS STATE
+  const addressesState = useAppSelector((state) => state.address);
 
   return (
     <Fragment>
-      {addresses.map((address, index) => {
+      {addressesState.addresses.map((address, index) => {
         return (
           <Marker
             key={uuidV4()}

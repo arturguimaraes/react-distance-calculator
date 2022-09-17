@@ -7,8 +7,7 @@ import Map from "./Map";
 const Wrapper = () => {
   //RENDERS MAP
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCCfDK9vibIF7-ZJBoD-VlWxOqu8RK3KYg",
-    //googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string,
     libraries: MapHelper.libraries,
   });
 

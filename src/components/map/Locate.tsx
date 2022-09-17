@@ -13,9 +13,8 @@ const Locate = (props: Props) => {
   //DISPATCH REDUX ACTION
   const dispatch = useAppDispatch();
 
-  const { onLocate } = props;
-
   //ON CLICK LOCATE
+  const { onLocate } = props;
   const clickHandler = useCallback(() => {
     //Success
     const success = (position: GeolocationPosition) => {

@@ -8,11 +8,12 @@ interface Props {
 }
 
 const Addresses = (props: Props) => {
-  const addresses = useAppSelector((state) => state.address.addresses);
+  //GET ADDRESS STATE
+  const addressState = useAppSelector((state) => state.address);
 
   return (
     <React.Fragment>
-      {addresses.map((address: IAddress, index: number) => (
+      {addressState.addresses.map((address: IAddress, index: number) => (
         <Address
           key={address.id}
           index={index}

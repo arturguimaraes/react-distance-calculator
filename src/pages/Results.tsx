@@ -2,6 +2,7 @@ import { Card } from "react-bootstrap";
 import AddressTable from "../components/address/AddressTable";
 import Result from "../components/result/Result";
 import { useAppSelector } from "../store/hooks";
+import classes from "./Results.module.scss";
 
 const Results = () => {
   const addressState = useAppSelector((state) => state.address);
@@ -11,7 +12,9 @@ const Results = () => {
     <section>
       <h2 className="text-center">Results</h2>
       <Card>
-        <Card.Header>Your Addresses</Card.Header>
+        <Card.Header>
+          <b>Your Addresses</b>
+        </Card.Header>
         <Card.Body>
           <div className="row">
             <div className="col-md-12">
@@ -22,7 +25,15 @@ const Results = () => {
       </Card>
       {hasMinimumAddresses && (
         <Card className="mt-5">
-          <Card.Header>Results</Card.Header>
+          <Card.Header>
+            <b>Results</b>{" "}
+            <span className={classes.legend}>
+              (In order from closest to farthest by walking distance, being{" "}
+              <span className={classes.green}>green</span> closest, and{" "}
+              <span className={classes.red}>red</span> farthest)
+            </span>
+            <span className={classes.legend}>(Font: DistanceMatrixService from Google Maps API)</span>
+          </Card.Header>
           <Card.Body>
             <div className="row">
               <div className="col-md-12">

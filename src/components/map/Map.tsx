@@ -40,8 +40,7 @@ const Map = () => {
   const [mapCenter, setMapCenter] = useState(MapHelper.center);
   useEffect(() => {
     const addresses = addressState.addresses;
-    const count = addresses.length;
-    if (count > 0) {
+    if (addresses.length > 0) {
       const lastAddress = addresses[addressState.selected];
       setMapCenter({ lat: lastAddress.lat, lng: lastAddress.lng });
       mapPanToAddressHandler(lastAddress);
