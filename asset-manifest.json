@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "https://arturguimaraes.github.io/react-distance-calculator/static/css/main.3cfb887f.css",
+    "main.js": "https://arturguimaraes.github.io/react-distance-calculator/static/js/main.35328f07.js",
+    "index.html": "https://arturguimaraes.github.io/react-distance-calculator/index.html",
+    "main.3cfb887f.css.map": "https://arturguimaraes.github.io/react-distance-calculator/static/css/main.3cfb887f.css.map",
+    "main.35328f07.js.map": "https://arturguimaraes.github.io/react-distance-calculator/static/js/main.35328f07.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3cfb887f.css",
+    "static/js/main.35328f07.js"
+  ]
+}
