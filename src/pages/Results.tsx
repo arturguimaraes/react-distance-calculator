@@ -32,7 +32,9 @@ const Results = () => {
               <span className={classes.green}>green</span> closest, and{" "}
               <span className={classes.red}>red</span> farthest)
             </span>
-            <span className={classes.legend}>(Font: DistanceMatrixService from Google Maps API)</span>
+            <span className={classes.legend}>
+              (Font: DistanceMatrixService from Google Maps API)
+            </span>
           </Card.Header>
           <Card.Body>
             <div className="row">

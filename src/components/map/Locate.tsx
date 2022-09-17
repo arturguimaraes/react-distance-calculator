@@ -12,12 +12,11 @@ interface Props {
 const Locate = (props: Props) => {
   //DISPATCH REDUX ACTION
   const dispatch = useAppDispatch();
-
   //ON CLICK LOCATE
   const { onLocate } = props;
   const clickHandler = useCallback(() => {
     //Success
-    const success = (position: GeolocationPosition) => {
+    const successHandler = (position: GeolocationPosition) => {
       const id = uuidV4();
       const address: IAddress = {
         id: id,
@@ -31,21 +30,22 @@ const Locate = (props: Props) => {
       //Center in click
       onLocate(address);
     };
-
     //Error
-    const error = (error: GeolocationPositionError) => {
+    const errorHandler = (error: GeolocationPositionError) => {
       console.log("Error atrieving browser's geolocation:", error);
     };
-
     //Geolocation options
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0,
     };
-
     //Get geolocation
-    navigator.geolocation.getCurrentPosition(success, error, options);
+    navigator.geolocation.getCurrentPosition(
+      successHandler,
+      errorHandler,
+      options
+    );
   }, [dispatch, onLocate]);
 
   return (

@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useAppSelector } from "../../store/hooks";
 import Loader from "../ui/Loader";
 import { Loader as GoogleMapsLoader } from "@googlemaps/js-api-loader";
@@ -23,48 +23,79 @@ const Result = () => {
     setIsLoading(true);
     setIsCalculating(true);
     setErrorLoading(false);
-    setDistances([]);
     setErrorCalculating(false);
-
     //Loads Google Maps API
     const loader = new GoogleMapsLoader({
       apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string,
       version: "weekly",
       libraries: MapHelper.libraries,
     });
-
+    //Success handler function
+    const successHandler = () => {
+      console.log("Success loading google maps service.");
+      //Mock loading for too fast occurrencies
+      setTimeout(() => {
+        //Stop Loading
+        setIsLoading(false);
+        //Set error FALSE
+        setErrorLoading(false);
+        //Distances without calculation
+        const distancesWithNoCalculation =
+          ResultHelper.getDistancesCombinations(addressState.addresses);
+        //Updates previous state
+        //setDistancesPreviousState(distances);
+        //Updates distanceState
+        setDistances(distancesWithNoCalculation);
+        //Calculates distances
+        calculateDistances(distancesWithNoCalculation);
+      }, ResultHelper.useLoadingTime);
+    };
+    //Error loading function
+    const errorHandler = (error: any) => {
+      console.log("Error loading google maps service:", error);
+      //Stop Loading
+      setIsLoading(false);
+      //Set error TRUE
+      setErrorLoading(true);
+    };
     //Callback
     loader.loadCallback((e) => {
       //CALLBACK ERROR
-      if (e) {
-        console.log("Error loading google maps service:", e);
-        setIsLoading(false);
-        setErrorLoading(true);
-      }
+      if (e) errorHandler(e);
       //SUCCESS, PROCEED
-      else {
-        setTimeout(() => {
-          setIsLoading(false);
-          setErrorLoading(false);
-          getDistancesCombinations();
-        }, 3000);
-      }
+      else successHandler();
     });
   }, [addressState]);
 
   //GET DISTANCE FOR EACH PAIR
-  const getDistances = useCallback(() => {
-    //Loads google map DistanceMatrixService
-    const service = new google.maps.DistanceMatrixService();
+  const calculateDistances = (distances: IDistance[]) => {
+    //If distances not loaded yet
+    if (distances.length === 0) {
+      console.log(
+        `Distances array not loaded yet (${distances.length} distances). Not calculating.`
+      );
+      return;
+    }
+    /*//If removing address or same lenght, doesn't need to calculate again
+    const calculate = distancesPreviousState.length <= distances.length;
+    //Compare state with previous state
+    console.log(`Comparing previous state (${distancesPreviousState.length} distances) with current state (${distances.length}  distances). Recalculate: ${calculate ? "YES" : "NO"}`);
+    if (!calculate) {
+      setIsCalculating(false);
+      return;
+    }*/
+    //Calculates distances
+    console.log(
+      `Calculating ${distances.length} distances using DistanceMatrixService from Google Maps API.`,
+      distances
+    );
     //For each distance
     distances.forEach((distance, index) => {
-      if (index === distances.length - 1) {
-        console.log("stopped loading");
-        setIsCalculating(false);
-        return;
-      }
+      //Gets origin and destination latLng Object
       const origin = ResultHelper.getLatLng(distance.origin);
       const destination = ResultHelper.getLatLng(distance.destination);
+      //Loads google map DistanceMatrixService
+      const service = new google.maps.DistanceMatrixService();
       service
         .getDistanceMatrix({
           origins: [origin],
@@ -72,6 +103,7 @@ const Result = () => {
           travelMode: google.maps.TravelMode.WALKING,
         })
         .then((result: any) => {
+          //console.log("Success calculating distance:", index, distance);
           try {
             if (
               result &&
@@ -81,19 +113,21 @@ const Result = () => {
               result.rows[0].elements.length > 0
             ) {
               //Value of distance
-              const value = result.rows[0].elements[0].distance.value;
+              const value = result.rows[0].elements[0].distance.value/1000;
               //Updates distances
               const newDistances = [...distances];
-              newDistances.find((newDistance) => {
-                if(newDistance.origin === distance.origin && newDistance.destination === distance.destination)
+              newDistances.forEach((newDistance) => {
+                if (
+                  newDistance.origin === distance.origin &&
+                  newDistance.destination === distance.destination
+                )
                   newDistance.distance = value;
-              })
-              //setDistances(newDistances);
+              });
               //Updates array
-              console.log("Success", distance);
+              setDistances(newDistances);
             }
           } catch (error) {
-            console.log("Error calculating distance:", error, distance);
+            console.log("Error calculating distance:", error, index, distance);
             setErrorCalculating(true);
           }
         })
@@ -101,22 +135,19 @@ const Result = () => {
           console.log("Error calculating distance:", error, distance);
           setErrorCalculating(true);
         });
+      //Stops loading add final
+      if (index === distances.length - 1) {
+        console.log("Finished Calculation");
+        setIsCalculating(false);
+        return;
+      }
     });
-  }, []);
+    // let index = 0;
+    // for (const distance of distances) {}
+  };
 
-  //DEFINE THE ARRAY OF DISTANCES
-  const getDistancesCombinations = useCallback(() => {
-    //Rename address clicked
-    const renamedAddresses = ResultHelper.renameAddresses(
-      addressState.addresses
-    );
-    //Iterate all to put in array
-    const distances = ResultHelper.getAllCombinations(renamedAddresses);
-    //Distances without calculation
-    setDistances(distances);
-    //Calculates distances
-    getDistances();
-  }, [addressState, getDistances]);
+  //GET DISTANCE FOR PAIR OF ADDRESSES
+  //const calculateDistance = (index: number, distance: IDistance) => {};
 
   //USER SIMULATE WAITING
   if (isLoading || isCalculating) {

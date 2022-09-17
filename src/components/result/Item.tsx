@@ -16,7 +16,7 @@ const Item = (props: Props) => {
       <td className="text-center">{props.index + 1}</td>
       <td>{props.distance.origin.address}</td>
       <td>{props.distance.destination.address}</td>
-      <td>{`${props.distance.distance} Km`}</td>
+      <td>{`${props.distance.distance.toFixed(2)} Km`}</td>
     </tr>
   );
 };

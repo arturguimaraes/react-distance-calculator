@@ -10,6 +10,12 @@ interface Props {
 }
 
 const ResultTable = (props: Props) => {
+  //Order from closest to farthest
+  props.distances.sort((a, b) => {
+    if (a.distance < b.distance) return -1;
+    return 1;
+  });
+  
   return (
     <Fragment>
       <div className={classes.tableContainer}>
@@ -22,7 +28,7 @@ const ResultTable = (props: Props) => {
                   key={`${distance.origin.address}-${distance.destination.address}`}
                   index={index}
                   distance={distance}
-                  lastIndex={props.distances.length-1}
+                  lastIndex={props.distances.length - 1}
                 />
               );
             })}

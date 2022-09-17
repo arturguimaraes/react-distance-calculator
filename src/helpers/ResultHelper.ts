@@ -3,22 +3,6 @@ import IDistance from "../types/IDistance";
 import TextHelper from "./TextHelper";
 
 const ResultHelper = {
-  //RENAME ADDRESS WITHOUT NAME
-  renameAddresses: (addresses: IAddress[]) => {
-    return addresses.map((address, index) => {
-      const newAddress = {
-        ...address,
-        address: address.clicked
-          ? `Address ${TextHelper.getLetter(index)}`
-          : address.address,
-      } as IAddress;
-      return newAddress;
-    });
-  },
-  //GET LATLNG OBJECT
-  getLatLng: (address: IAddress) => {
-    return new google.maps.LatLng(address.lat, address.lng);
-  },
   //GET ALL COMBINATIONS
   getAllCombinations: (addresses: IAddress[]) => {
     let distances = [] as IDistance[];
@@ -62,6 +46,33 @@ const ResultHelper = {
       return true;
     return false;
   },
+  //DEFINE THE ARRAY OF DISTANCES
+  getDistancesCombinations: (addresses: IAddress[]) => {
+    //Rename address clicked
+    const renamedAddresses = ResultHelper.renameAddresses(addresses);
+    //Iterate all to put in array
+    const distancesWithNoCalculation =
+      ResultHelper.getAllCombinations(renamedAddresses);
+    return distancesWithNoCalculation;
+  },
+  //RENAME ADDRESS WITHOUT NAME
+  renameAddresses: (addresses: IAddress[]) => {
+    return addresses.map((address, index) => {
+      const newAddress = {
+        ...address,
+        address: address.clicked
+          ? `Address ${TextHelper.getLetter(index)}`
+          : address.address,
+      } as IAddress;
+      return newAddress;
+    });
+  },
+  //GET LATLNG OBJECT
+  getLatLng: (address: IAddress) => {
+    return new google.maps.LatLng(address.lat, address.lng);
+  },
+  //FAKE LOADING TIME
+  useLoadingTime: 1000,
 };
 
 export default ResultHelper;
