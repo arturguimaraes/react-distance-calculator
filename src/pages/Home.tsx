@@ -10,7 +10,7 @@ const Home = () => {
         <Card.Body>
           <div className="row">
             <div className="col-md-12">
-              <AddressTable mapShown={false} />
+              <AddressTable />
             </div>
           </div>
         </Card.Body>

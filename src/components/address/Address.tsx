@@ -1,12 +1,14 @@
+import { useCallback } from "react";
 import { Button } from "react-bootstrap";
-import { removeAddress } from "../../store/addressSlice";
+import TextHelper from "../../helpers/TextHelper";
+import { removeAddress, setSelectedAddress } from "../../store/addressSlice";
 import { useAppDispatch } from "../../store/hooks";
 import IAddress from "../../types/IAddress";
-import { getLetter } from "../map/Helper";
+import classes from "./Address.module.scss";
 
 interface Props {
   address: IAddress;
-  mapShown: boolean;
+  mapPage: boolean;
   index: number;
 }
 
@@ -15,34 +17,62 @@ const Address = (props: Props) => {
 
   const address = props.address;
   const addressString = address.clicked
-    ? `Addres ${props.index + 1} (clicked)`
+    ? `Addres ${TextHelper.getLetter(props.index)} (clicked)`
     : address.address;
+  const index = props.index;
 
-  const deleteAddressHandler = (id: string) => {
-    dispatch(removeAddress(id));
-  };
+  //SELECT ADDRESS
+  const selectAddressHandler = useCallback(
+    (index: number) => {
+      dispatch(setSelectedAddress(index));
+    },
+    [dispatch]
+  );
+
+  //DELETE ADDRESS
+  const deleteAddressHandler = useCallback(
+    (id: string) => {
+      dispatch(removeAddress(id));
+    },
+    [dispatch]
+  );
 
   return (
     <tr>
       <td className="text-center">
-        <Button variant="danger" size="sm">
-          {getLetter(props.index)}
+        <Button className={classes.button} variant="success" size="sm">
+          {TextHelper.getLetter(props.index)}
         </Button>
       </td>
       <td>{addressString}</td>
-      {!props.mapShown && (
+      {!props.mapPage && (
         <>
           <td>{address.lat}</td>
           <td>{address.lng}</td>
         </>
       )}
+      {props.mapPage && (
+        <td className="text-center">
+          <Button
+            className={classes.button}
+            variant="primary"
+            size="sm"
+            onClick={selectAddressHandler.bind(null, index)}
+          >
+            <span role="img" aria-label="view">
+              👁️
+            </span>
+          </Button>
+        </td>
+      )}
       <td className="text-center">
         <Button
-          variant="outline-danger"
+          className={classes.button}
+          variant="danger"
           size="sm"
           onClick={deleteAddressHandler.bind(null, address.id)}
         >
-          x
+          X
         </Button>
       </td>
     </tr>

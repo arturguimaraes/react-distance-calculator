@@ -14,17 +14,18 @@ const Search = (props: Props) => {
   const dispatch = useAppDispatch();
 
   //SEARCH BOX - AUTO COMPLETE
-  const autoCompleteRef = useRef<any>(null);
+  const searchBoxRef = useRef<any>(null);
   const loadHandler = useCallback((autocomplete: any) => {
-    autoCompleteRef.current = autocomplete;
+    searchBoxRef.current = autocomplete;
   }, []);
 
+  //GETS ON SELECT PLACE
   const { onSelectPlace } = props;
 
   //ON AUTOCOMPLETE CHANGE
   const placeChangedHandler = useCallback(() => {
     try {
-      const place = autoCompleteRef.current.getPlace();
+      const place = searchBoxRef.current.getPlace();
       const address: IAddress = {
         id: uuidV4(),
         address: place.name,
@@ -36,6 +37,8 @@ const Search = (props: Props) => {
       dispatch(addAddress(address));
       //Center in click
       onSelectPlace(address);
+      
+      searchBoxRef.current.setValues(null);
     } catch (error) {
       console.log("Error loading auto complete place:", error);
     }

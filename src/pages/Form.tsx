@@ -20,7 +20,7 @@ const Form = () => {
               <MapWrapper />
             </div>
             <div className="col-md-6">
-              <AddressTable mapShown={true} />
+              <AddressTable mapPage={true} />
             </div>
           </div>
         </Card.Body>

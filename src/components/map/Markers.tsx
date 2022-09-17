@@ -1,14 +1,15 @@
 import { Marker } from "@react-google-maps/api";
 import { useAppSelector } from "../../store/hooks";
 import { v4 as uuidV4 } from "uuid";
-import { MarkerHelper } from "./Helper";
+import MarkerHelper from "../../helpers/MarkerHelper";
+import { Fragment } from "react";
 
 const Markers = () => {
   //LOAD ADDRESSESS
   const addresses = useAppSelector((state) => state.address.addresses);
 
   return (
-    <>
+    <Fragment>
       {addresses.map((address, index) => {
         return (
           <Marker
@@ -24,7 +25,7 @@ const Markers = () => {
           />
         );
       })}
-    </>
+    </Fragment>
   );
 };
 

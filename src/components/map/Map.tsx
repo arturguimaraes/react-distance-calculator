@@ -1,12 +1,12 @@
-import React, { useCallback, useRef } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { GoogleMap } from "@react-google-maps/api";
 import IAddress from "../../types/IAddress";
-import { MapHelper } from "./Helper";
+import MapHelper from "../../helpers/MapHelper";
 import { v4 as uuidV4 } from "uuid";
 import Search from "./Search";
 import Markers from "./Markers";
 import classes from "./Map.module.scss";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addAddress } from "../../store/addressSlice";
 import Locate from "./Locate";
 
@@ -15,30 +15,40 @@ const Map = () => {
   const dispatch = useAppDispatch();
 
   //LOAD ADDRESSESS
-  //const addresses = useAppSelector((state) => state.address.addresses);
+  const addressState = useAppSelector((state) => state.address);
 
-  //MAP
-  const mapRef = useRef<google.maps.Map>();
+  //MAP LOAD
+  const [map, setMap] = useState<google.maps.Map | null>(null);
   const mapLoadHandler = useCallback((map: google.maps.Map) => {
-    mapRef.current = map;
+    setMap(map);
   }, []);
 
-  //MAP PAN TO LAT AND LNG
-  const mapPanToHandler = useCallback((address: IAddress) => {
-    if (mapRef.current) {
-      //Set center
-      mapRef.current.panTo({ lat: address.lat, lng: address.lng });
-      //Set zoom
-      mapRef.current.setZoom(MapHelper.onChooseZoomLevel);
+  //MAP UNMOUNT
+  const mapUnmountHandler = useCallback(() => {
+    setMap(null);
+  }, []);
+
+  //MAP PAN TO
+  const mapPanToAddressHandler = useCallback(
+    (address: IAddress) => {
+      if (map) MapHelper.mapPanToAddress(map, address);
+    },
+    [map]
+  );
+
+  //SETS MAP CENTER
+  const [mapCenter, setMapCenter] = useState(MapHelper.center);
+  useEffect(() => {
+    const addresses = addressState.addresses;
+    const count = addresses.length;
+    if (count > 0) {
+      const lastAddress = addresses[addressState.selected];
+      setMapCenter({ lat: lastAddress.lat, lng: lastAddress.lng });
+      mapPanToAddressHandler(lastAddress);
     }
-  }, []);
+  }, [addressState, mapPanToAddressHandler]);
 
-  //MAP PAN TO LAT AND LNG
-  /*const mapPanToAddress = useCallback((lat: number, lng: number)  => {
-    mapPanTo(address.lat, address.lng);
-  }, [mapPanTo]);  */
-
-  //MAP CLICK HANDLER
+  //MAP CLICK
   const mapClickHandler = useCallback(
     (event: google.maps.MapMouseEvent) => {
       if (event.latLng) {
@@ -53,14 +63,14 @@ const Map = () => {
         //Adds address to addresses list
         dispatch(addAddress(address));
         //Center in click
-        mapPanToHandler(address);
+        mapPanToAddressHandler(address);
       }
     },
-    [dispatch, mapPanToHandler]
+    [dispatch, mapPanToAddressHandler]
   );
 
   return (
-    <React.Fragment>
+    <Fragment>
       <h1 className={classes.mapTitle}>
         Distance Calculator
         <span role="img" aria-label="map">
@@ -70,16 +80,17 @@ const Map = () => {
       <GoogleMap
         mapContainerStyle={MapHelper.mapContainerStyle}
         zoom={MapHelper.initialMapZoomLevel}
-        center={MapHelper.center}
+        center={mapCenter}
         options={MapHelper.options}
-        onClick={mapClickHandler}
         onLoad={mapLoadHandler}
+        onUnmount={mapUnmountHandler}
+        onClick={mapClickHandler}
       >
-        <Search onSelectPlace={mapPanToHandler} />
-        <Locate onLocate={mapPanToHandler} />
+        <Search onSelectPlace={mapPanToAddressHandler} />
+        <Locate onLocate={mapPanToAddressHandler} />
         <Markers />
       </GoogleMap>
-    </React.Fragment>
+    </Fragment>
   );
 };
 

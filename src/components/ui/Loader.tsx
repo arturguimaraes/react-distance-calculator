@@ -1,9 +1,14 @@
 import { Spinner } from "react-bootstrap";
 
-const Loader = () => {
+interface Props {
+  children?: any;
+}
+
+const Loader = (props: Props) => {
   return (
-    <div className="row mt-5">
-      <div className="mt-5 offset-sm-5 col-sm-2">
+    <div className="row my-5 text-center">
+      <div className="col-md-12">{props.children}</div>
+      <div className="mt-4 offset-sm-5 col-sm-2">
         <Spinner animation="border" />
       </div>
     </div>

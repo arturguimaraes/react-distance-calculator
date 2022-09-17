@@ -1,13 +1,16 @@
+import { Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Empty = () => {
+interface Props {
+  count: number;
+}
+
+const Empty = (props: Props) => {
   return (
-    <tr>
-      <td colSpan={4} className="text-center">
-        You don't have any addresse choosen. Please click{" "}
-        <Link to="/form">here</Link> to choose at least 3.
-      </td>
-    </tr>
+    <Alert variant="warning" className="text-center">
+      You have chosen {props.count} address(es). Click{" "}
+      <Link to="/form">here</Link> to choose at least 3.
+    </Alert>
   );
 };
 

@@ -4,7 +4,7 @@ import { useAppSelector } from "../../store/hooks";
 import Address from "./Address";
 
 interface Props {
-  mapShown: boolean;
+  mapPage: boolean;
 }
 
 const Addresses = (props: Props) => {
@@ -17,7 +17,7 @@ const Addresses = (props: Props) => {
           key={address.id}
           index={index}
           address={address}
-          mapShown={props.mapShown}
+          mapPage={props.mapPage}
         />
       ))}
     </React.Fragment>

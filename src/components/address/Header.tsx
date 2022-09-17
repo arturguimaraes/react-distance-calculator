@@ -1,5 +1,7 @@
+import { Fragment } from "react";
+
 interface Props {
-  mapShown: boolean;
+  mapPage: boolean;
 }
 
 const Header = (props: Props) => {
@@ -8,12 +10,13 @@ const Header = (props: Props) => {
       <tr>
         <th className="text-center">#</th>
         <th>Address</th>
-        {!props.mapShown && (
-          <>
+        {!props.mapPage && (
+          <Fragment>
             <th>Latitude</th>
             <th>Longitude</th>
-          </>
+          </Fragment>
         )}
+        {props.mapPage && <th className="text-center">View</th>}
         <th className="text-center">Remove</th>
       </tr>
     </thead>

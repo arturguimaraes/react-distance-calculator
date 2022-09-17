@@ -17,25 +17,36 @@ const Locate = (props: Props) => {
 
   //ON CLICK LOCATE
   const clickHandler = useCallback(() => {
-    navigator.geolocation.getCurrentPosition(
-      //Success
-      (position) => {
-        const id = uuidV4();
-        const address: IAddress = {
-          id: id,
-          address: id,
-          clicked: true,
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        //Adds address to addresses list
-        dispatch(addAddress(address));
-        //Center in click
-        onLocate(address);
-      },
-      //Error
-      () => console.log("Error atrieving browser's geolocation")
-    );
+    //Success
+    const success = (position: GeolocationPosition) => {
+      const id = uuidV4();
+      const address: IAddress = {
+        id: id,
+        address: "Browser's location",
+        clicked: false,
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      //Adds address to addresses list
+      dispatch(addAddress(address));
+      //Center in click
+      onLocate(address);
+    };
+
+    //Error
+    const error = (error: GeolocationPositionError) => {
+      console.log("Error atrieving browser's geolocation:", error);
+    };
+
+    //Geolocation options
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+
+    //Get geolocation
+    navigator.geolocation.getCurrentPosition(success, error, options);
   }, [dispatch, onLocate]);
 
   return (
