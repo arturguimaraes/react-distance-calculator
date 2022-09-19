@@ -27,17 +27,17 @@ npm start
 
 ## Introduction
 
-A project made with ReactJS and Typescript, using the Google Maps Javascript API for calculating distance in the input locations.
+A project made with ReactJS and Typescript, using the Google Maps Javascript API for calculating distance in the input locations. Choose at least 3 addresses, and get the distances for each pair of addresses, ordered from closest to farthest.
 
 ## Features
 
--- ReactJS
--- Typescript
--- Sass modules
--- Redux
--- Bootstrap
--- Google Maps Javascript API
--- Google Places API
+1. ReactJS
+2. Typescript
+3. Sass modules
+4. Redux
+5. Bootstrap
+6. Google Maps Javascript API
+7. Google Places API
 
 ![react-distance-calculator](https://github.com/arturguimaraes/react-distance-calculator/blob/main/src/assets/img/print1.png?raw=true)
 
