@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/react-distance-calculator/static/css/main.f4f617cf.css",
-    "main.js": "/react-distance-calculator/static/js/main.1cb057f8.js",
+    "main.css": "/react-distance-calculator/static/css/main.4f30bfce.css",
+    "main.js": "/react-distance-calculator/static/js/main.fcf7684a.js",
     "index.html": "/react-distance-calculator/index.html",
-    "main.f4f617cf.css.map": "/react-distance-calculator/static/css/main.f4f617cf.css.map",
-    "main.1cb057f8.js.map": "/react-distance-calculator/static/js/main.1cb057f8.js.map"
+    "main.4f30bfce.css.map": "/react-distance-calculator/static/css/main.4f30bfce.css.map",
+    "main.fcf7684a.js.map": "/react-distance-calculator/static/js/main.fcf7684a.js.map"
   },
   "entrypoints": [
-    "static/css/main.f4f617cf.css",
-    "static/js/main.1cb057f8.js"
+    "static/css/main.4f30bfce.css",
+    "static/js/main.fcf7684a.js"
   ]
 }
