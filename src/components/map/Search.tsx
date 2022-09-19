@@ -4,6 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 import { addAddress } from "../../store/addressSlice";
 import { useAppDispatch } from "../../store/hooks";
 import IAddress from "../../types/IAddress";
+import classes from "./Search.module.scss";
 
 interface Props {
   onSelectPlace: (address: IAddress) => void;
@@ -47,24 +48,10 @@ const Search = (props: Props) => {
   return (
     <Autocomplete onLoad={loadHandler} onPlaceChanged={placeChangedHandler}>
       <input
+        id="searchBox"
+        className={classes.search}
         type="text"
         placeholder="Search your address here"
-        style={{
-          boxSizing: `border-box`,
-          border: `1px solid transparent`,
-          width: `240px`,
-          height: `32px`,
-          padding: `0 12px`,
-          borderRadius: `3px`,
-          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-          fontSize: `14px`,
-          outline: `none`,
-          textOverflow: `ellipses`,
-          position: "absolute",
-          top: "1rem",
-          right: "4rem",
-          marginLeft: "-120px",
-        }}
       />
     </Autocomplete>
   );

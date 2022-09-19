@@ -113,7 +113,7 @@ const Result = () => {
               result.rows[0].elements.length > 0
             ) {
               //Value of distance
-              const value = result.rows[0].elements[0].distance.value/1000;
+              const value = result.rows[0].elements[0].distance.value / 1000;
               //Updates distances
               const newDistances = [...distances];
               newDistances.forEach((newDistance) => {

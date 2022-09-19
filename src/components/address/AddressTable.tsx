@@ -21,8 +21,8 @@ const AddressTable = (props: Props) => {
 
   return (
     <Fragment>
-      {!hasMinimumAddresses && !props.mapPage && (
-        <Empty count={addressState.count} />
+      {!hasMinimumAddresses && (
+        <Empty count={addressState.count} mapPage={props.mapPage} />
       )}
       {hasMinimumAddresses && !resultPage && (
         <Ready count={addressState.count} />

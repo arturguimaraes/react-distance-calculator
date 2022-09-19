@@ -16,7 +16,7 @@ const Form = () => {
                 location to save it.
               </p>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 mb-3">
               <MapWrapper />
             </div>
             <div className="col-md-6">
