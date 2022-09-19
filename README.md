@@ -1,6 +1,6 @@
 # React Distance Calculator
 
-![react-distance-calculator](https://github.com/arturguimaraes/react-distance-calculator/blob/main/src/assets/img/print1.png?raw=true)
+![react-distance-calculator](https://github.com/arturguimaraes/react-distance-calculator/blob/main/src/assets/img/print2.png?raw=true)
 
 ## Live Application
 
@@ -38,3 +38,7 @@ A project made with ReactJS and Typescript, using the Google Maps Javascript API
 -- Bootstrap
 -- Google Maps Javascript API
 -- Google Places API
+
+![react-distance-calculator](https://github.com/arturguimaraes/react-distance-calculator/blob/main/src/assets/img/print1.png?raw=true)
+
+![react-distance-calculator](https://github.com/arturguimaraes/react-distance-calculator/blob/main/src/assets/img/print3.png?raw=true)
