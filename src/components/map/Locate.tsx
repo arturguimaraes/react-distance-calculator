@@ -7,13 +7,17 @@ import { addAddress } from "../../store/addressSlice";
 
 interface Props {
   onLocate: (address: IAddress) => void;
+  onShowAlert: (style: string, text: string) => void;
 }
 
 const Locate = (props: Props) => {
   //DISPATCH REDUX ACTION
   const dispatch = useAppDispatch();
+
+  //GETS PROPS
+  const { onLocate, onShowAlert } = props;
+
   //ON CLICK LOCATE
-  const { onLocate } = props;
   const clickHandler = useCallback(() => {
     //Success
     const successHandler = (position: GeolocationPosition) => {
@@ -29,10 +33,16 @@ const Locate = (props: Props) => {
       dispatch(addAddress(address));
       //Center in click
       onLocate(address);
+      //Show success
+      onShowAlert("success", `${address.address} was added successfully.`);
     };
     //Error
     const errorHandler = (error: GeolocationPositionError) => {
       console.log("Error atrieving browser's geolocation:", error);
+      onShowAlert(
+        "danger",
+        "Error atrieving browser's geolocation. Please try again."
+      );
     };
     //Geolocation options
     const options = {
@@ -46,7 +56,7 @@ const Locate = (props: Props) => {
       errorHandler,
       options
     );
-  }, [dispatch, onLocate]);
+  }, [dispatch, onLocate, onShowAlert]);
 
   return (
     <button className={classes.locate} onClick={clickHandler}>

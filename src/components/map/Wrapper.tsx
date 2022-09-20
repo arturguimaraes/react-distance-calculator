@@ -1,5 +1,6 @@
 import { useLoadScript } from "@react-google-maps/api";
-import React from "react";
+import React, { ReactElement, Fragment, useState } from "react";
+import { Alert } from "react-bootstrap";
 import MapHelper from "../../helpers/MapHelper";
 import Loader from "../ui/Loader";
 import Map from "./Map";
@@ -11,6 +12,35 @@ const Wrapper = () => {
     libraries: MapHelper.libraries,
   });
 
+  //ALERT
+  const [showAlert, setShowAlert] = useState(false);
+  const [alert, setAlert] = useState<ReactElement | null>(null);
+
+  //ALERT HANDLER
+  const showAlertHandler = (style: string, text: string) => {
+    setShowAlert(true);
+    setAlert(
+      <Alert
+        variant={style}
+        className="text-center"
+        onClose={hideAlertHandler}
+        dismissible
+      >
+        <span>{text}</span>
+      </Alert>
+    );
+    //Hide after 'alterTime' seconds.
+    setTimeout(() => {
+      hideAlertHandler();
+    }, MapHelper.alertShowSeconds * 1000);
+  };
+
+  //ALERT HIDE HANDLER
+  const hideAlertHandler = () => {
+    setShowAlert(false);
+    setAlert(null);
+  };
+
   //MAP ERROR
   if (loadError) return <p>Error loading maps</p>;
 
@@ -18,7 +48,12 @@ const Wrapper = () => {
   if (!isLoaded) return <Loader>Loading map...</Loader>;
 
   //MAP LOAD
-  return <Map />;
+  return (
+    <Fragment>
+      {showAlert && alert}
+      <Map onShowAlert={showAlertHandler} />
+    </Fragment>
+  );
 };
 
 export default React.memo(Wrapper);

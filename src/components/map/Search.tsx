@@ -8,6 +8,7 @@ import classes from "./Search.module.scss";
 
 interface Props {
   onSelectPlace: (address: IAddress) => void;
+  onShowAlert: (style: string, text: string) => void;
 }
 
 const Search = (props: Props) => {
@@ -20,8 +21,8 @@ const Search = (props: Props) => {
     searchBoxRef.current = autocomplete;
   }, []);
 
-  //GETS ON SELECT PLACE
-  const { onSelectPlace } = props;
+  //GETS PROPS
+  const { onSelectPlace, onShowAlert } = props;
 
   //ON AUTOCOMPLETE CHANGE
   const placeChangedHandler = useCallback(() => {
@@ -38,12 +39,14 @@ const Search = (props: Props) => {
       dispatch(addAddress(address));
       //Center in click
       onSelectPlace(address);
-
-      searchBoxRef.current.setValues(null);
-    } catch (error) {
+      //Show success
+      onShowAlert("success", `${address.address} was added successfully.`);
+    } catch (error: any) {
+      //Show error
       console.log("Error loading auto complete place:", error);
+      onShowAlert("danger", "Error loading address. Please try again.");
     }
-  }, [dispatch, onSelectPlace]);
+  }, [dispatch, onSelectPlace, onShowAlert]);
 
   return (
     <Autocomplete onLoad={loadHandler} onPlaceChanged={placeChangedHandler}>

@@ -15,6 +15,7 @@ const MapHelper = {
   initialMapZoomLevel: 14,
   onChooseZoomLevel: 16,
   libraries: ["places"] as MapLibraries,
+  alertShowSeconds: 5,
   //Functions
   getCenter: (address: IAddress) => {
     return { lat: address.lat, lng: address.lng };

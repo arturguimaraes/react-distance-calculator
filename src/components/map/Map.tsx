@@ -9,8 +9,13 @@ import classes from "./Map.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addAddress } from "../../store/addressSlice";
 import Locate from "./Locate";
+import TextHelper from "../../helpers/TextHelper";
 
-const Map = () => {
+interface Props {
+  onShowAlert: (style: string, text: string) => void;
+}
+
+const Map = (props: Props) => {
   //DISPATCH REDUX ACTION
   const dispatch = useAppDispatch();
 
@@ -31,7 +36,9 @@ const Map = () => {
   //MAP PAN TO
   const mapPanToAddressHandler = useCallback(
     (address: IAddress) => {
-      if (map) MapHelper.mapPanToAddress(map, address);
+      if (map) {
+        MapHelper.mapPanToAddress(map, address);
+      }
     },
     [map]
   );
@@ -47,6 +54,9 @@ const Map = () => {
     }
   }, [addressState, mapPanToAddressHandler]);
 
+  //GETS PROPS
+  const { onShowAlert } = props;
+  
   //MAP CLICK
   const mapClickHandler = useCallback(
     (event: google.maps.MapMouseEvent) => {
@@ -63,9 +73,13 @@ const Map = () => {
         dispatch(addAddress(address));
         //Center in click
         mapPanToAddressHandler(address);
+        
+        //Show success
+        const addressName = `Address ${TextHelper.getLetter(addressState.count)}`;
+        onShowAlert("success", `${addressName} was added successfully.`);
       }
     },
-    [dispatch, mapPanToAddressHandler]
+    [dispatch, mapPanToAddressHandler, onShowAlert, addressState.count]
   );
 
   return (
@@ -85,8 +99,8 @@ const Map = () => {
         onUnmount={mapUnmountHandler}
         onClick={mapClickHandler}
       >
-        <Search onSelectPlace={mapPanToAddressHandler} />
-        <Locate onLocate={mapPanToAddressHandler} />
+        <Search onSelectPlace={mapPanToAddressHandler} onShowAlert={props.onShowAlert}/>
+        <Locate onLocate={mapPanToAddressHandler} onShowAlert={props.onShowAlert}/>
         <Markers />
       </GoogleMap>
     </Fragment>
